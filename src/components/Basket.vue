@@ -1,7 +1,7 @@
 <template>
     <div class="basket">
   <button  type="button" @click="basketShow">Koszyk</button>
-  <div v-if="basketShowBool">
+  <div class="basketBody" v-if="basketShowBool">
   <table>
   <tbody>
         <tr v-for="it in basket" :key="it.id">
@@ -9,9 +9,11 @@
         <td>{{ it.title }}</td>
         <td>{{ it.author }}</td>
         <td>{{ it.price }}</td>
+        <td></td>
         </tr>
   </tbody>
   </table>
+  {{ basket }}
   </div>
   </div>
 </template>
@@ -27,6 +29,7 @@ export default {
     methods: {
       basketShow: function() {
           this.basketShowBool = !this.basketShowBool;
+          console.log(this.basket);
 
 
 
@@ -34,11 +37,14 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
+.basketBody {
+    padding: 10px;
+}
 .basket {
     position: fixed;
-    top: 0em;
-    right: 0em;
+    top: 2em;
+    right: 1em;
     text-align: right;
     z-index: 1;
     background-color: grey;

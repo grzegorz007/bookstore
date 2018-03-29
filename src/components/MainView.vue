@@ -141,7 +141,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .seekBar {
 
     text-align:center
@@ -174,7 +174,6 @@ export default {
 }
 .card-img-top {
     max-width: 300px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-radius: 15px;
 }
 </style>
