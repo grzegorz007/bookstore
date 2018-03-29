@@ -1,31 +1,37 @@
 <template>
     <div>
         <div class="wrapper" v-if="descriptionClicked">
-        <input class="seekBar" type="text" placeholder="co chcesz wyszukać?" v-model="searchItem">
+        <input class="seekBar form-control" type="text" placeholder="wpisz szukany tytuł" v-model="searchItem">
                 <div class="container">
-                    <div class="row">
-                        <div class="item" @click="showDescription(item)" v-for="item in filteredItems" :key="item.id">
-                            <img :src="item.image">
-                            <div class="title">Title: {{ item.title }}</div>
-                            <div class="author">Author: {{ item.author }}</div>
-                            <div class="type">Media type: {{ item.type }}</div>
-                            <div class="price">Price: {{ item.price }}</div>
-                            <button @click='addToBasket(item)'>Add to Basket</button> </div>
+                    <div class="row justify-content-center">
+                        <div class="item card" v-for="item in filteredItems" :key="item.id">
+                            <img class="card-img-top" @click="showDescription(item)" :src="item.image" :alt="item.image">
+                            <div class="card-body">
+                                <h5 class="title card-title">Tytuł: {{ item.title }}</h5>
+                                <div class="author card-text">Autor: {{ item.author }}</div>
+                                <div class="type card-text">Rodzaj nośnika: {{ item.type }}</div>
+                                <div class="price card-text">Cena: {{ item.price }} PLN</div>
+                                <button class="button btn btn-secondary" @click='addToBasket(item)'>Do koszyka</button> 
+                            </div>
+                        </div>
                     </div>
                 </div>
         </div>
         <div v-else>
-                            <div class="clickedItem">
-                            <img :src="clickedItem.image">
-                            <div class="title">Title: {{ clickedItem.title }}</div>
-                            <div class="author">Author: {{ clickedItem.author }}</div>
-                            <div class="type">Media type: {{ clickedItem.type }}</div>
-                            <div class="price">Price: {{ clickedItem.price }}</div>
-                            <div class="price">Price: {{ clickedItem.description }}</div>
-                            <button @click='addToBasket(clickedItem)'>Add to Basket</button> 
-                            <button @click="showDescription(item)">Close</button> </div>
+            <div class="clickedItem">
+                <img class="card-img-top" :src="clickedItem.image" :alt="clickedItem.image">
+                <div class="title card-title">Tytuł: {{ clickedItem.title }}</div>
+                <div class="author card-text">Autor: {{ clickedItem.author }}</div>
+                <div class="type card-text">Rodzaj nośnika: {{ clickedItem.type }}</div>
+                <div class="price card-text">Cena: {{ clickedItem.price }} PLN</div>
+                <div class="description card-text">Opis: {{ clickedItem.description }}</div>
+                <button class="btn btn-secondary" @click='addToBasket(clickedItem)'>Do koszyka</button> 
+                <button class="btn btn-danger" @click="showDescription(item)">Zamknij</button>
+            </div>
 
         </div>
+
+        
         <basket :basket="basket"></basket>
     </div>
 </template>
@@ -37,6 +43,7 @@ export default {
     props: ['basket'],
     data() {
         return {
+            basketTemp: [],
             descriptionClicked: true,
             clickedItem: {},
             searchItem: "",
@@ -110,8 +117,6 @@ export default {
     },
     methods: {
         showDescription (item) {
-            // var temp = this;
-            // console.log(item)
             this.descriptionClicked = !this.descriptionClicked;
             return this.clickedItem = item
 
@@ -120,8 +125,9 @@ export default {
             this.descriptionClicked = !this.descriptionClicked
         },
         addToBasket: function(clickedItem) {
-            console.log(clickedItem);
-            this.basket = clickedItem;
+            
+            this.basketTemp.push(clickedItem);
+            return this.basket = this.basketTemp
         }
     },
     computed: {
@@ -142,14 +148,33 @@ export default {
 }
 .clickedItem {
     text-align: center;
-    margin: 2em;
-    padding: 2em;
+    margin: 2px;
+    padding: 2px;
 }
 .item {
     margin: 10px;
 }
 .wrapper {
-        margin: 1em;
-        text-align:center
+    margin: 1em;
+    text-align:center
+}
+.button {
+    position: absolute;
+    right: 62px;
+    align-self: center;
+    top: 274px;
+}
+.card {
+    min-height: 320px;
+    width: 15rem;
+    border-radius: 15px;
+}
+.card:hover {
+    background-color: grey;
+}
+.card-img-top {
+    max-width: 300px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 </style>

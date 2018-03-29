@@ -1,14 +1,15 @@
 <template>
     <div class="basket">
-  <button  type="button" @click="basketShow">Basket</button>
-  <div v-if="basketShowBool"><p>To jest koszyk!</p>
+  <button  type="button" @click="basketShow">Koszyk</button>
+  <div v-if="basketShowBool">
   <table>
   <tbody>
-      <tr v-for="it in this.basket" :key="it.title">
-      <td>{{ it.title }}</td>
-      <!-- <td>Column2</td>
-      <td>Column3</td> -->
-      </tr>
+        <tr v-for="it in basket" :key="it.id">
+        <td><img class="card-img-top" :src="it.image" :alt="it.image">  </td>
+        <td>{{ it.title }}</td>
+        <td>{{ it.author }}</td>
+        <td>{{ it.price }}</td>
+        </tr>
   </tbody>
   </table>
   </div>
@@ -26,8 +27,7 @@ export default {
     methods: {
       basketShow: function() {
           this.basketShowBool = !this.basketShowBool;
-          console.log("Koszyk działa!");
-          console.log(this.basket.author);
+
 
 
       }
@@ -42,5 +42,10 @@ export default {
     text-align: right;
     z-index: 1;
     background-color: grey;
+    color: white;
+}
+.clickedItem {
+    margin: 0 auto;
+    max-width: 300px;
 }
 </style>

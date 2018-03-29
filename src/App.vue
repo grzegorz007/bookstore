@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Moja księgarnia</h1>
-<main-view :basket="basket"></main-view>
+<main-view ></main-view>
 
   </div>
 </template>
@@ -22,5 +22,8 @@ export default {
 
 
 <style >
+div h1 {
+  text-align: center;
 
+}
 </style>
